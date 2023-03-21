@@ -1,3 +1,4 @@
+// Copyright 2022 UNN-IASR
 #include <iostream>
 #include <cmath>
 
@@ -7,10 +8,10 @@ unsigned int faStr1(const char* str) {
     bool has_digit = false;
 
     while (*str) {
-        if (*str >= '0' && *str <= '9') {
+        if ((*str >= '0') && (*str <= '9')) {
             has_digit = true;
         }
-        else if (*str >= 'a' && *str <= 'z' || *str >= 'A' && *str <= 'Z') {
+        else if (((*str >= 'a') && (*str <= 'z')) || ((*str >= 'A') && (*str <= 'Z'))) {
             if (!in_word) {
                 in_word = true;
             }
@@ -42,16 +43,16 @@ unsigned int faStr2(const char* str) {
             in = 1;
             F = 1;
         }
-        else if (in == 1 && str[i] != ' ' && F == 1) {
-            if (str[i] >= 65 && str[i] <= 90) F = 0;
-            else if (str[i] > 122 || str[i] < 97) F = 0;
+        else if ((in == 1) && (str[i] != ' ') && (F == 1)) {
+            if ((str[i] >= 65) && (str[i] <= 90)) F = 0;
+            else if ((str[i] > 122) || (str[i] < 97)) F = 0;
         }
         else if (in == 1 && str[i] == ' ') {
             if (F == 1) count++;
             F = 0;
             in = 0;
         }
-        else if (in == 1 && F == 1 && str[i + 1] == '\0') {
+        else if ((in == 1) && (F == 1) && (str[i + 1] == '\0')) {
             count++;
         }
         i++;
@@ -67,11 +68,11 @@ unsigned int faStr3(const char* str) {
     for (int i = 0; str[i] != '\0'; ++i) {
         char c = str[i];
 
-        if (c >= 'A' && c <= 'Z') {
+        if ((c >= 'A') && (c <= 'Z')) {
             in_word = true;
             character_count++;
         }
-        else if (c >= 'a' && c <= 'z') {
+        else if ((c >= 'a') && (c <= 'z')) {
             in_word = true;
             character_count++;
         }
