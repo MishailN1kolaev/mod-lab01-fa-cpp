@@ -1,93 +1,92 @@
-// Copyright 2022 UNN-IASR
-#include <cctype>
-
+#include <iostream>
 #include <cmath>
 
-#include "fun.h"
-
 unsigned int faStr1(const char* str) {
-	int count = 0;
-	bool in_word = false;
-	bool contains_letters = false;
-	for (int i = 0; str[i] != '\0'; i++) {
-		if (!in_word && str[i] != ' ') {
-			if (!isdigit(str[i])) {
-				contains_letters = true;
-			}
-			in_word = true;
-		}
-		else if (in_word && str[i] != ' ' && contains_letters) {
-			if (isdigit(str[i])) {
-				contains_letters = false;
-				count++;
-			}
-		}
-		else if (in_word && str[i] == ' ') {
-			if (contains_letters) {
-				count++;
-			}
-			contains_letters = false;
-			in_word = false;
-		}
-	}
-	if (in_word && contains_letters) {
-		count++;
-	}
-	return count;
+    unsigned int count = 0;
+    bool in_word = false;
+    bool has_digit = false;
+
+    while (*str) {
+        if (*str >= '0' && *str <= '9') {
+            has_digit = true;
+        }
+        else if (*str >= 'a' && *str <= 'z' || *str >= 'A' && *str <= 'Z') {
+            if (!in_word) {
+                in_word = true;
+            }
+        }
+        else {
+            if (in_word && !has_digit) {
+                count++;
+            }
+            in_word = false;
+            has_digit = false;
+        }
+        str++;
+    }
+
+    if (in_word && !has_digit) {
+        count++;
+    }
+
+    return count;
 }
 
 unsigned int faStr2(const char* str) {
-	int count = 0;
-	bool in_word = false;
-	bool contains_uppercase = false;
-	for (int i = 0; str[i] != '\0'; i++) {
-		if (!in_word && isupper(str[i])) {
-			in_word = true;
-			contains_uppercase = true;
-		}
-		else if (in_word && str[i] != ' ' && contains_uppercase) {
-			if (!isupper(str[i]) && isalpha(str[i])) {
-				contains_uppercase = false;
-				count++;
-			}
-		}
-		else if (in_word && str[i] == ' ') {
-			if (contains_uppercase) {
-				count++;
-			}
-			contains_uppercase = false;
-			in_word = false;
-		}
-	}
-	if (in_word && contains_uppercase) {
-		count++;
-	}
-	return count;
+    int i = 0;
+    int count = 0;
+    int in = 0;
+    int F = 0;
+    while (str[i] != '\0') {
+        if (in == 0 && str[i] >= 65 && str[i] <= 90) {
+            in = 1;
+            F = 1;
+        }
+        else if (in == 1 && str[i] != ' ' && F == 1) {
+            if (str[i] >= 65 && str[i] <= 90) F = 0;
+            else if (str[i] > 122 || str[i] < 97) F = 0;
+        }
+        else if (in == 1 && str[i] == ' ') {
+            if (F == 1) count++;
+            F = 0;
+            in = 0;
+        }
+        else if (in == 1 && F == 1 && str[i + 1] == '\0') {
+            count++;
+        }
+        i++;
+    }
+    return count;
 }
 
 unsigned int faStr3(const char* str) {
-	int count = 0;
-	int length = 0;
-	bool in_word = false;
-	for (int i = 0; str[i] != '\0'; i++) {
-		if (!in_word && str[i] != ' ') {
-			count++;
-			length++;
-			in_word = true;
-		}
-		else if (in_word && str[i] != ' ') {
-			length++;
-		}
-		else if (in_word && str[i] == ' ') {
-			in_word = false;
-			if (length > 0) {
-				count++;
-			}
-			length = 0;
-		}
-	}
-	if (in_word && length > 0) {
-		count++;
-	}
-	return static_cast<int>(round(static_cast<float>(length) / static_cast<float>(count)));
+    unsigned int word_count = 0;
+    unsigned int character_count = 0;
+    bool in_word = false;
+
+    for (int i = 0; str[i] != '\0'; ++i) {
+        char c = str[i];
+
+        if (c >= 'A' && c <= 'Z') {
+            in_word = true;
+            character_count++;
+        }
+        else if (c >= 'a' && c <= 'z') {
+            in_word = true;
+            character_count++;
+        }
+        else if (in_word) {
+            word_count++;
+            in_word = false;
+        }
+    }
+
+    if (in_word) {
+        word_count++;
+    }
+
+    float average = static_cast<float>(character_count) / static_cast<float>(word_count);
+    int rounded_average = static_cast<int>(round(average));
+
+    return rounded_average;
 }
