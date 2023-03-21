@@ -10,7 +10,7 @@ unsigned int faStr1(const char* str) {
     bool in_word = false;
     bool has_digit = false;
 
-   while (*str) {
+    while (*str) {
         if ((*str >= '0') && (*str <= '9')) {
             has_digit = true;
         }
