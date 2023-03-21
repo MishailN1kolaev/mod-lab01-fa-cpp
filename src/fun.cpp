@@ -1,17 +1,20 @@
 // Copyright 2022 UNN-IASR
 #include <iostream>
+#include <cstring>
 #include <cmath>
+
+#include "fun.h"
 
 unsigned int faStr1(const char* str) {
     unsigned int count = 0;
     bool in_word = false;
     bool has_digit = false;
 
-    while (*str) {
+   while (*str) {
         if ((*str >= '0') && (*str <= '9')) {
             has_digit = true;
         }
-        else if (((*str >= 'a') && (*str <= 'z')) || ((*str >= 'A') && (*str <= 'Z'))) {
+        else if (isalpha(*str)) {
             if (!in_word) {
                 in_word = true;
             }
@@ -22,7 +25,7 @@ unsigned int faStr1(const char* str) {
             }
             in_word = false;
             has_digit = false;
-        }
+            }
         str++;
     }
 
