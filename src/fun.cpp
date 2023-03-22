@@ -13,13 +13,11 @@ unsigned int faStr1(const char* str) {
     while (*str) {
         if ((*str >= '0') && (*str <= '9')) {
             has_digit = true;
-        }
-        else if (isalpha(*str)) {
+        } else if (isalpha(*str)) {
             if (!in_word) {
                 in_word = true;
             }
-        }
-        else if (in_word && !has_digit) {
+        } else if (in_word && !has_digit) {
             count++;
         }
         in_word = false;
@@ -44,17 +42,14 @@ unsigned int faStr2(const char* str) {
         if (in == 0 && str[i] >= 65 && str[i] <= 90) {
             in = 1;
             F = 1;
-        }
-        else if ((in == 1) && (str[i] != ' ') && (F == 1)) {
+        } else if ((in == 1) && (str[i] != ' ') && (F == 1)) {
             if ((str[i] >= 65) && (str[i] <= 90)) F = 0;
             else if ((str[i] > 122) || (str[i] < 97)) F = 0;
-        }
-        else if (in == 1 && str[i] == ' ') {
+        } else if (in == 1 && str[i] == ' ') {
             if (F == 1) count++;
             F = 0;
             in = 0;
-        }
-        else if ((in == 1) && (F == 1) && (str[i + 1] == '\0')) {
+        } else if ((in == 1) && (F == 1) && (str[i + 1] == '\0')) {
             count++;
         }
         i++;
@@ -73,12 +68,10 @@ unsigned int faStr3(const char* str) {
         if ((c >= 'A') && (c <= 'Z')) {
             in_word = true;
             character_count++;
-        }
-        else if ((c >= 'a') && (c <= 'z')) {
+        } else if ((c >= 'a') && (c <= 'z')) {
             in_word = true;
             character_count++;
-        }
-        else if (in_word) {
+        } else if (in_word) {
             word_count++;
             in_word = false;
         }
