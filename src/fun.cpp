@@ -13,15 +13,17 @@ unsigned int faStr1(const char* str) {
     while (*str) {
         if ((*str >= '0') && (*str <= '9')) {
             has_digit = true;
-        } else if (isalpha(*str)) {
+        } else if (*str >= 'a' && *str <= 'z' || *str >= 'A' && *str <= 'Z') {
             if (!in_word) {
                 in_word = true;
             }
-        } else if (in_word && !has_digit) {
-            count++;
+        } else if (in_word) {
+            if (!has_digit) {
+                count++;
+            }
+            in_word = false;
+            has_digit = false;
         }
-        in_word = false;
-        has_digit = false;
 
         str++;
     }
